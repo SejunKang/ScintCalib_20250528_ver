@@ -1,6 +1,7 @@
-Useful bash code
+#Useful bash code
 
-run() {
+run() 
+{
         make
 
         ./calib run.mac
