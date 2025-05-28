@@ -1,4 +1,5 @@
 # Useful bash code
+You can use the bash code `run` for running the simulation. 
 ```
 run() {
 make
