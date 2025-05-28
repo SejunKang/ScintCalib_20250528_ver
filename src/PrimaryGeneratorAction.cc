@@ -2,7 +2,7 @@
 #include "G4ParticleGun.hh"
 #include "G4Gamma.hh"
 #include "G4Electron.hh"
-#include "G4Geantino.hh"
+#include "G4MuonMinus.hh"
 #include "PrimaryGeneratorAction.hh"
 #include "G4RandomTools.hh"
 #include "G4IonTable.hh"
@@ -33,11 +33,11 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event *anEvent)
     {
     G4ParticleDefinition* ion =  G4IonTable::GetIonTable()->GetIon(48, 109, 0.); */
     fPrimary->SetParticleDefinition(G4Gamma::Definition());
-    fPrimary->SetParticleEnergy(22.*keV);
+    fPrimary->SetParticleEnergy(G4RandGauss::shoot(22. *keV, 1. *keV));
     fPrimary->SetParticleCharge(0. *eplus);
     fPrimary->SetParticlePosition(G4ThreeVector(0., n *cm, -25 *mm));
     //momentum distribution ===============================
     fPrimary->SetParticleMomentumDirection(G4RandomDirection(sqrt(0.5))); //45 degrees conic distribution
     fPrimary->GeneratePrimaryVertex(anEvent);
-//}
+  //}
 }

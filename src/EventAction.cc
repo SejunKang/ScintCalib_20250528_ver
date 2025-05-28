@@ -56,7 +56,7 @@ void EventAction::EndOfEventAction(const G4Event *anEvent)
     AM_2 -> FillNtupleIColumn(0, 2, m_Rnum);
     AM_2 -> AddNtupleRow(0);
 
-     if(m_NOp < cut)
+     if(m_NOp < 30)
         {
           G4int ENofEvent = anEvent -> GetEventID();
           AM -> FillNtupleIColumn(1,0,ENofEvent);

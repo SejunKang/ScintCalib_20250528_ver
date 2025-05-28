@@ -13,6 +13,7 @@
 #include "G4VisAttributes.hh"
 #include "G4SubtractionSolid.hh"
 #include "G4LogicalBorderSurface.hh"
+#include "G4OpBoundaryProcess.hh"
 DetectorConstruction::DetectorConstruction() : G4VUserDetectorConstruction()
 {
 }
@@ -132,17 +133,17 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
 	                                 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
 	                                 1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
 
-	std::vector <G4double> Foil_refl = {0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97,	
-	                                 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97,
-	                                 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97,
-	                                 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97,
-	                                 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97,
-	                                 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97,
-	                                 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97,
-	                                 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97,
-	                                 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97,
-	                                 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97,
-	                                 0.97, 0.97, 0.97, 0.97, 0.97, 0.97};
+	std::vector <G4double> Foil_refl = {0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99,	
+	                                 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99,
+	                                 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99,
+	                                 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99,
+	                                 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99,
+	                                 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99,
+	                                 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99,
+	                                 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99,
+	                                 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99,
+	                                 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99,
+	                                 0.99, 0.99, 0.99, 0.99, 0.99, 0.99};
 
 //===== Scintillator Properties ===============================
 
@@ -257,8 +258,8 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
 	mptFoil -> AddProperty("REFLECTIVITY", energy, Foil_refl);
 	matFoil -> SetMaterialPropertiesTable(mptFoil);
 	
-	G4Box *OutFoil =  new G4Box("OutFoil", 25.5 *mm, 750.25 *mm, 25.5 *mm);
-	G4Box *InFoil = new G4Box("InFoil", 25. *mm, 750. *mm, 25. *mm);
+	G4Box *OutFoil =  new G4Box("OutFoil", 26.0 *mm, 750.25 *mm, 26.0 *mm);
+	G4Box *InFoil = new G4Box("InFoil", 25.5 *mm, 750. *mm, 25.5 *mm);
 	G4SubtractionSolid *FoilSol = new G4SubtractionSolid("FoilSol", OutFoil, InFoil, nullptr, G4ThreeVector(0., 0.25 *mm, 0.));
 	G4LogicalVolume *FoilLog = new G4LogicalVolume(FoilSol, matFoil, "FoilLog");
 	G4PVPlacement *FoilPhy = new G4PVPlacement(nullptr, G4ThreeVector(0.,-0.25 *mm,0.), FoilLog, "FoilPhy", WorldLV, false, 0);
@@ -284,17 +285,19 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
 
 	G4LogicalBorderSurface* LBS = new G4LogicalBorderSurface("OpLBS",UPhy, FoilPhy, OpSurface);
     G4LogicalBorderSurface* LBS2 = new G4LogicalBorderSurface("OpLBS",UPhy, UpFoilPhy, OpSurface);
-	/*
-	OpSurface -> SetType(dielectric_LUTDAVIS);
-	OpSurface -> SetModel(DAVIS);
-	OpSurface -> SetFinish(PolishedTeflon_LUT);
-	*/
 	
-	OpSurface -> SetType(dielectric_metal);
-	//OpSurface -> SetModel(unified);
-	OpSurface -> SetModel(glisur);
+	OpSurface -> SetType(dielectric_dielectric);
+	OpSurface -> SetModel(unified);
 	OpSurface -> SetFinish(polished);
+	//OpSurface -> SetSigmaAlpha(0.0081);
 	
+	
+	/*
+	OpSurface -> SetType(dielectric_metal);
+	OpSurface -> SetModel(unified);
+	//OpSurface -> SetModel(glisur);
+	OpSurface -> SetFinish(polished);
+	*/
     G4double ephoton[19] = {1.554 *eV, 1.6 *eV, 1.701 *eV, 1.806 *eV, 1.938 *eV, 2.074 *eV, 2.227 *eV, 
 							2.409 *eV, 2.606 *eV, 2.848 *eV, 3.226 *eV, 3.388 *eV, 3.543 *eV, 3.721 *eV, 
 							3.872 *eV, 4.128 *eV, 4.349 *eV, 4.608 *eV, 4.959 *eV};
@@ -303,11 +306,18 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
 									  0.9438, 0.9458, 0.9542, 0.9542, 0.9521, 0.95, 0.9438, 0.9333, 
 									  0.9313, 0.9229, 0.9125};
 
+    //G4double Surf_reflectivity[19] = {0.95, 0.95, 0.95, 0.95, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97};
+
+    G4double Backscatter[19] = {0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01};
+
+
 	G4MaterialPropertiesTable *SMPT = new G4MaterialPropertiesTable();
 
 	SMPT -> AddProperty("REFLECTIVITY", ephoton, Surf_reflectivity, 19);
+//	SMPT -> AddProperty("BACKSCATTERCONSTANT", ephoton, Backscatter, 19);
 
-	OpSurface -> SetMaterialPropertiesTable(SMPT);
+
+	//OpSurface -> SetMaterialPropertiesTable(SMPT);
 	
  return WorldPV;
 

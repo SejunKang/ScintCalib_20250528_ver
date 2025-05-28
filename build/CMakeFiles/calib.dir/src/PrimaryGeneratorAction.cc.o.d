@@ -260,7 +260,7 @@ CMakeFiles/calib.dir/src/PrimaryGeneratorAction.cc.o: \
  /usr/local/include/Geant4/G4ParticleMomentum.hh \
  /usr/local/include/Geant4/G4Gamma.hh \
  /usr/local/include/Geant4/G4Electron.hh \
- /usr/local/include/Geant4/G4Geantino.hh \
+ /usr/local/include/Geant4/G4MuonMinus.hh \
  /home/sejunkang/calib/include/PrimaryGeneratorAction.hh \
  /usr/local/include/Geant4/G4VUserPrimaryGeneratorAction.hh \
  /usr/local/include/Geant4/G4ParticleTable.hh \

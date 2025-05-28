@@ -26,9 +26,9 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
 
     //Defining incident angle
     auto incvec = step -> GetDeltaPosition();
-    double dotproduct = incvec.getY();
-    double vecmag = incvec.mag();
-    double cos = dotproduct / vecmag;
+    G4double dotproduct = incvec.getY();
+    G4double vecmag = incvec.mag();
+    G4double cos = dotproduct / vecmag;
 
     //Defining process
     const G4VProcess* creProc = step -> GetTrack() -> GetCreatorProcess();
@@ -70,7 +70,7 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
         AM -> AddNtupleRow(0);
     
     }
-        
+    
     // Accumulate dE
     G4double Delegy = (preKinEgy - postKinEgy) / keV;
     if (parName == "gamma")
