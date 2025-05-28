@@ -1,13 +1,9 @@
 # Useful bash code
 ```
-run() 
-{
-        make
-
-        ./calib run.mac
-
-        echo "simulation completed!"
-
-        root -l photoncounting.C
+run() {
+make
+./calib run.mac
+echo "simulation completed!"
+root -l photoncounting.C
 }
 ```
