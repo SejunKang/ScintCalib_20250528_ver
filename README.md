@@ -1,5 +1,5 @@
 #Useful bash code
-
+```
 run() 
 {
         make
@@ -10,3 +10,4 @@ run()
 
         root -l photoncounting.C
 }
+```
